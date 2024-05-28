@@ -1,12 +1,24 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Text } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
 
-function ToDoItem() {
+function ToDoItem({item, deleteTodos}) {
   return (
-    <View>
-      <Text>To Do Item page</Text>
-    </View>
+    <TouchableOpacity onPress={() => deleteTodos(item.key)}>
+        <Text style={styles.item}>{item.text}</Text>
+    </TouchableOpacity>
   )
 }
 
+const styles = StyleSheet.create({
+    item: {
+        padding: 16,
+        marginTop: 16,
+        borderColor: '#bbb',
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderRadius: 10
+    }
+})
 export default ToDoItem
