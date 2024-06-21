@@ -14,11 +14,11 @@ function AddToDO({ addTodos }) {
 
     const handleAddTodo = () => {
         addTodos(text)
-        setText(" ")
+        setText('')
     }
 
     const handleResetText = () => {
-        setText(" ")
+        setText('')
     }
 
     return (
@@ -27,6 +27,7 @@ function AddToDO({ addTodos }) {
                 <TextInput
                     style={styles.input}
                     placeholder='New todo ...'
+                    value={text}  // Bind the state to the TextInput value
                     onChangeText={handleChange}
                 />
                 {
@@ -37,8 +38,7 @@ function AddToDO({ addTodos }) {
                     ) : null
                 }
             </View>
-            <Button onPress={handleAddTodo} title='add todo' color='coral' />
-
+            <Button onPress={handleAddTodo} title='Add Todo' color='coral' />
         </>
     )
 }
