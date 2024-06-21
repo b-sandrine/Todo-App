@@ -1,34 +1,66 @@
 import React, { useState } from 'react'
-import { View, Button } from 'react-native'
+import { View, Button, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import { Dimensions } from 'react-native'
 
-function AddToDO({addTodos}) {
+function AddToDO({ addTodos }) {
     const [text, setText] = useState('')
 
     const handleChange = (val) => {
         setText(val)
     }
+
+    const handleAddTodo = () => {
+        addTodos(text)
+        setText(" ")
+    }
+
+    const handleResetText = () => {
+        setText(" ")
+    }
+
     return (
-        <View>
-            <TextInput
-                style={styles.input}
-                placeholder='New todo ...'
-                onChangeText={handleChange}
-            />
-            <Button onPress={() => addTodos(text)} title='add todo' color='coral' />
-        </View>
+        <>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder='New todo ...'
+                    onChangeText={handleChange}
+                />
+                {
+                    text ? (
+                        <TouchableOpacity onPress={handleResetText} style={styles.cancelIcon}>
+                            <Ionicons name='close-circle' size={24} color="gray" />
+                        </TouchableOpacity>
+                    ) : null
+                }
+            </View>
+            <Button onPress={handleAddTodo} title='add todo' color='coral' />
+
+        </>
     )
 }
 
 const styles = StyleSheet.create({
-    input: {
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 10,
         marginBottom: 10,
-        paddingHorizontal: 8,
-        paddingVertical: 6,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        width: Dimensions.get('window').width - 80,
+        marginHorizontal: 10,
+    },
+    input: {
+        flex: 1,
+    },
+    cancelIcon: {
+        marginRight: 10
     }
 })
 
